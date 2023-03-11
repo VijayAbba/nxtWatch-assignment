@@ -89,7 +89,7 @@ class Login extends Component {
     return (
       <LoginContainer isDark={isDark}>
         <LoginCard isDark={isDark}>
-          <LoginImage src={ImageUrl} />
+          <LoginImage src={ImageUrl} alt="website logo" />
           <LoginForm onSubmit={this.onSubmitLogin}>
             <InputCard>
               <LabelElement isDark={isDark} htmlFor="userName">

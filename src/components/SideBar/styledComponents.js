@@ -3,11 +3,11 @@ import styled from 'styled-components'
 export const SideBarContainer = styled.div`
   /* Extra Small */
   @media screen and (max-width: 575px) {
-    display: none;
+    display: ${props => (props.Mobile ? 'visible' : 'none')};
   }
   /* Small */
   @media screen and (min-width: 576px) {
-    display: none;
+    display: ${props => (props.Mobile ? 'visible' : 'none')};
   }
   /* Medium */
   @media screen and (min-width: 768px) {
@@ -37,7 +37,7 @@ export const ListContainer = styled.ul`
 
 export const ContactUsContainer = styled.div`
   width: 100%;
-  display: flex;
+  display: ${props => (props.Mobile ? 'none' : 'flex')};
   flex-direction: column;
   justify-content: center;
   align-items: center;

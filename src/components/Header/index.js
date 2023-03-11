@@ -2,7 +2,6 @@ import {FaMoon} from 'react-icons/fa'
 import {BiSun} from 'react-icons/bi'
 import {withRouter} from 'react-router-dom'
 
-import {GiHamburgerMenu} from 'react-icons/gi'
 import MenuPopUp from '../MenuPopUp'
 import {
   HeaderContainer,
@@ -54,12 +53,7 @@ const Header = () => (
                 <FaMoon size="30" color="#000000" />
               )}
             </ThemeButton>
-            <ThemeButton>
-              <GiHamburgerMenu
-                size="30"
-                color={isDark ? '#ffffff' : '#000000'}
-              />
-            </ThemeButton>
+
             <MenuPopUp />
             <LogoutPopUp mobile />
           </HeaderButtonsCardMobile>

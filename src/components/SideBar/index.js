@@ -20,13 +20,15 @@ const sideBarList = [
   {id: 'SAVEDVIDEOS', displayText: 'Saved Videos', link: '/savedvideos'},
 ]
 
-const Sidebar = () => (
+const Sidebar = props => (
   <NxtWatchContext.Consumer>
     {value => {
       const {isDark, activeWindow} = value
 
+      const {Mobile} = props
+
       return (
-        <SideBarContainer isDark={isDark}>
+        <SideBarContainer Mobile={Mobile} isDark={isDark}>
           <ListContainer>
             {sideBarList.map(eachItem => (
               <ListItem
@@ -36,7 +38,7 @@ const Sidebar = () => (
               />
             ))}
           </ListContainer>
-          <ContactUsContainer>
+          <ContactUsContainer Mobile={Mobile}>
             <ContactUsHeading>CONTACT US</ContactUsHeading>
             <ContactListContainer>
               <ContactListItem>
