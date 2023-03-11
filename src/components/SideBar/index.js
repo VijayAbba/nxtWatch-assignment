@@ -1,5 +1,3 @@
-import {Component} from 'react'
-
 import {
   ListContainer,
   SideBarContainer,
@@ -22,56 +20,52 @@ const sideBarList = [
   {id: 'SAVEDVIDEOS', displayText: 'Saved Videos', link: '/savedvideos'},
 ]
 
-class Sidebar extends Component {
-  render() {
-    return (
-      <NxtWatchContext.Consumer>
-        {value => {
-          const {isDark, activeWindow} = value
+const Sidebar = () => (
+  <NxtWatchContext.Consumer>
+    {value => {
+      const {isDark, activeWindow} = value
 
-          return (
-            <SideBarContainer isDark={isDark}>
-              <ListContainer>
-                {sideBarList.map(eachItem => (
-                  <ListItem
-                    key={eachItem.id}
-                    itemDetails={eachItem}
-                    activeWindow={activeWindow}
-                  />
-                ))}
-              </ListContainer>
-              <ContactUsContainer>
-                <ContactUsHeading>CONTACT US</ContactUsHeading>
-                <ContactListContainer>
-                  <ContactListItem>
-                    <ContactImage
-                      src="https://assets.ccbp.in/frontend/react-js/nxt-watch-facebook-logo-img.png"
-                      alt="facebook logo"
-                    />
-                  </ContactListItem>
-                  <ContactListItem>
-                    <ContactImage
-                      src="https://assets.ccbp.in/frontend/react-js/nxt-watch-twitter-logo-img.png"
-                      alt="twitter logo"
-                    />
-                  </ContactListItem>
-                  <ContactListItem>
-                    <ContactImage
-                      src="https://assets.ccbp.in/frontend/react-js/nxt-watch-linked-in-logo-img.png"
-                      alt="linked in logo"
-                    />
-                  </ContactListItem>
-                </ContactListContainer>
-                <ContactText>
-                  Enjoy! Now to see your channels and recommendations!
-                </ContactText>
-              </ContactUsContainer>
-            </SideBarContainer>
-          )
-        }}
-      </NxtWatchContext.Consumer>
-    )
-  }
-}
+      return (
+        <SideBarContainer isDark={isDark}>
+          <ListContainer>
+            {sideBarList.map(eachItem => (
+              <ListItem
+                key={eachItem.id}
+                itemDetails={eachItem}
+                activeWindow={activeWindow}
+              />
+            ))}
+          </ListContainer>
+          <ContactUsContainer>
+            <ContactUsHeading>CONTACT US</ContactUsHeading>
+            <ContactListContainer>
+              <ContactListItem>
+                <ContactImage
+                  src="https://assets.ccbp.in/frontend/react-js/nxt-watch-facebook-logo-img.png"
+                  alt="facebook logo"
+                />
+              </ContactListItem>
+              <ContactListItem>
+                <ContactImage
+                  src="https://assets.ccbp.in/frontend/react-js/nxt-watch-twitter-logo-img.png"
+                  alt="twitter logo"
+                />
+              </ContactListItem>
+              <ContactListItem>
+                <ContactImage
+                  src="https://assets.ccbp.in/frontend/react-js/nxt-watch-linked-in-logo-img.png"
+                  alt="linked in logo"
+                />
+              </ContactListItem>
+            </ContactListContainer>
+            <ContactText>
+              Enjoy! Now to see your channels and recommendations!
+            </ContactText>
+          </ContactUsContainer>
+        </SideBarContainer>
+      )
+    }}
+  </NxtWatchContext.Consumer>
+)
 
 export default Sidebar

@@ -90,6 +90,10 @@ export const LogoutButton = styled.button`
 `
 
 export const HeaderButtonsCardMobile = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   /* Extra Small */
   @media screen and (max-width: 575px) {
   }
