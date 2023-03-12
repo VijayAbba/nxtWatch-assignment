@@ -22,7 +22,6 @@ import {
   ViewsAndTimeCard,
   ViewsAndTimeItem,
   LikeDislikeSaveCard,
-  ButtonListItem,
   HorizontalLine,
   ChannelDetailsCard,
   ChannelImg,
@@ -30,7 +29,7 @@ import {
   ChannelName,
   SubscribersCount,
   Description,
-  ButtonText,
+  ButtonEl,
 } from './styledComponents'
 
 const VideoApiStatusConsonants = {
@@ -40,7 +39,7 @@ const VideoApiStatusConsonants = {
   pending: 'PENDING',
 }
 
-const VideoStatusConsonents = {
+const VideoStatusConsonants = {
   initial: 'INITIAL',
   like: 'LIKE',
   dislike: 'DISLIKE',
@@ -50,11 +49,19 @@ class VideoDetailsPage extends Component {
   state = {
     videoDetails: {},
     apiStatus: VideoApiStatusConsonants.initial,
-    videoStatus: 'LIKE',
+    videoStatus: VideoStatusConsonants.initial,
   }
 
   componentDidMount() {
     this.getVideoData()
+  }
+
+  onVideoLike = () => {
+    this.setState({videoStatus: VideoStatusConsonants.like})
+  }
+
+  onVideoDislike = () => {
+    this.setState({videoStatus: VideoStatusConsonants.dislike})
   }
 
   getVideoData = async () => {
@@ -77,7 +84,7 @@ class VideoDetailsPage extends Component {
     if (response.ok === true) {
       const fetchedData = await response.json()
       const videoDetails = fetchedData.video_details
-      console.log(videoDetails)
+
       const updatedVideosData = {
         channelName: videoDetails.channel.name,
         profileImageUrl: videoDetails.channel.profile_image_url,
@@ -121,10 +128,20 @@ class VideoDetailsPage extends Component {
     return (
       <NxtWatchContext.Consumer>
         {value => {
-          const {isDark} = value
+          const {isDark, onSaveVideo, savedVideosList} = value
 
-          const isLikeActive = true
-          const isDisLikeActive = false
+          const {videoStatus} = this.state
+
+          const isLikeActive = videoStatus === VideoStatusConsonants.like
+          const isDisLikeActive = videoStatus === VideoStatusConsonants.dislike
+
+          const onSaveVideoId = () => {
+            onSaveVideo(id)
+          }
+
+          const checkId = savedVideosList.find(eachItem => eachItem.id === id)
+
+          const savedVide = checkId !== undefined
 
           return (
             <VideoDetailCard>
@@ -143,24 +160,30 @@ class VideoDetailsPage extends Component {
                   <ViewsAndTimeItem>{fromDistance} ago</ViewsAndTimeItem>
                 </ViewsAndTimeCard>
                 <LikeDislikeSaveCard>
-                  <ButtonListItem>
+                  <ButtonEl onClick={this.onVideoLike} isActive={isLikeActive}>
                     <BiLike
                       size="20"
                       color={isLikeActive ? '#3b82f6' : '#64748b'}
                     />
-                    <ButtonText isActive={isLikeActive}>Like</ButtonText>
-                  </ButtonListItem>
-                  <ButtonListItem>
+                    Like
+                  </ButtonEl>
+                  <ButtonEl
+                    onClick={this.onVideoDislike}
+                    isActive={isDisLikeActive}
+                  >
                     <BiDislike
                       size="20"
                       color={isDisLikeActive ? '#3b82f6' : '#64748b'}
                     />
-                    <ButtonText isActive={isDisLikeActive}>Dislike</ButtonText>
-                  </ButtonListItem>
-                  <ButtonListItem>
-                    <BiListPlus size="20" color="#64748b" />
-                    <ButtonText>Save</ButtonText>
-                  </ButtonListItem>
+                    Dislike
+                  </ButtonEl>
+                  <ButtonEl onClick={onSaveVideoId} isActive={savedVide}>
+                    <BiListPlus
+                      size="20"
+                      color={savedVide ? '#3b82f6' : '#64748b'}
+                    />
+                    Save
+                  </ButtonEl>
                 </LikeDislikeSaveCard>
               </VideoBelowDetailsCard>
               <HorizontalLine />

@@ -1,5 +1,5 @@
 import {Component} from 'react'
-import ReactPlayer from 'react-player'
+
 import Loader from 'react-loader-spinner'
 import {formatDistanceToNow} from 'date-fns'
 import Cookies from 'js-cookie'
@@ -14,6 +14,8 @@ import {
   TrendingContainer,
   SubContainer,
   LoaderContainer,
+  TrendingContentContainer,
+  StyledLink,
 } from './styledComponents'
 
 const VideoApiStatusConsonants = {
@@ -58,8 +60,6 @@ class Trending extends Component {
         fromDistance: formatDistanceToNow(new Date(eachItem.published_at)),
       }))
 
-      console.log(updatedVideosData)
-
       this.setState({
         apiStatus: VideoApiStatusConsonants.success,
         trendingVideos: updatedVideosData,
@@ -71,7 +71,28 @@ class Trending extends Component {
     }
   }
 
-  renderSuccessView = () => <h1 className="">Success</h1>
+  renderSuccessView = () => {
+    const {trendingVideos} = this.state
+
+    // const {
+    //   channelName,
+    //   profileImageUrl,
+    //   id,
+    //   publishedAt,
+    //   thumbnailUrl,
+    //   title,
+    //   viewCount,
+    //   fromDistance,
+    // } = trendingVideos
+
+    return (
+      <TrendingContentContainer>
+        {trendingVideos.map(eachItem => (
+          <StyledLink to={`/videos/${eachItem.id}`}>Link</StyledLink>
+        ))}
+      </TrendingContentContainer>
+    )
+  }
 
   renderLoader = () => (
     <NxtWatchContext.Consumer>

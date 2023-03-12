@@ -16,7 +16,7 @@ import NxtWatchContext from './context/NxtWatchContext'
 // Replace your code here
 
 class App extends Component {
-  state = {isDark: false, activeWindow: 'HOME'}
+  state = {isDark: false, activeWindow: 'HOME', savedVideosList: []}
 
   onToggleTheme = () => {
     this.setState(preState => ({isDark: !preState.isDark}))
@@ -26,15 +26,32 @@ class App extends Component {
     this.setState({activeWindow: id})
   }
 
+  onSaveVideo = id => {
+    const {savedVideosList} = this.state
+
+    const getIndex = savedVideosList.findIndex(eachItem => eachItem.id === id)
+    if (getIndex === -1) {
+      this.setState(preState => ({
+        savedVideosList: [...preState.savedVideosList, {id}],
+      }))
+    } else {
+      const filterList = savedVideosList.filter(eachItem => eachItem.id !== id)
+      this.setState({savedVideosList: filterList})
+    }
+  }
+
   render() {
-    const {isDark, activeWindow} = this.state
+    const {isDark, activeWindow, savedVideosList} = this.state
+
     return (
       <NxtWatchContext.Provider
         value={{
           isDark,
           activeWindow,
+          savedVideosList,
           onToggleTheme: this.onToggleTheme,
           onChangeActiveWindow: this.onChangeActiveWindow,
+          onSaveVideo: this.onSaveVideo,
         }}
       >
         <Switch>

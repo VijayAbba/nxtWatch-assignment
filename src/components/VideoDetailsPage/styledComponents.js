@@ -105,16 +105,18 @@ export const LikeDislikeSaveCard = styled.ul`
   }
 `
 
-export const ButtonListItem = styled.li`
-  padding-right: 25px;
+export const ButtonEl = styled.button`
+  background-color: transparent;
+
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-`
-export const ButtonText = styled.p`
-  padding: 10px;
-  color: #64748b;
+  margin: 0px;
+  font-weight: bold;
+  font-size: 14px;
+  width: 90px;
+  border-width: 0px;
   color: ${props => (props.isActive ? '#3b82f6' : '#64748b')};
 `
 
