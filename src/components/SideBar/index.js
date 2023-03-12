@@ -17,7 +17,7 @@ const sideBarList = [
   {id: 'HOME', displayText: 'Home', link: '/'},
   {id: 'TRENDING', displayText: 'Trending', link: '/trending'},
   {id: 'GAMING', displayText: 'Gaming', link: '/gaming'},
-  {id: 'SAVEDVIDEOS', displayText: 'Saved Videos', link: '/savedvideos'},
+  {id: 'SAVEDVIDEOS', displayText: 'Saved Videos', link: '/saved-videos'},
 ]
 
 const Sidebar = props => (

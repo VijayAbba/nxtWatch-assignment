@@ -1,6 +1,14 @@
 import styled from 'styled-components'
 
-export const HomeContainer = styled.div``
+export const HomeContainer = styled.div`
+  padding-top: 100px;
+  background-color: ${props => (props.isDark ? '#0f0f0f' : '#f9f9f9')};
+
+  /* Small */
+  @media screen and (max-width: 767px) {
+    padding-top: 70px;
+  }
+`
 
 export const SubContainer = styled.div`
   display: flex;
@@ -11,8 +19,6 @@ export const HomeContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-
-  height: 100vh;
 
   background-color: ${props => (props.isDark ? '#0f0f0f' : '#f9f9f9')};
 
@@ -49,6 +55,7 @@ export const SearchInput = styled.input`
   border-width: 0px;
   font-size: 18px;
   padding-left: 15px;
+  color: ${props => (props.isDark ? '#f9f9f9' : '#231f20')};
   background-color: ${props => (props.isDark ? '#231f20' : '#f9f9f9')};
 `
 

@@ -3,6 +3,8 @@ import Loader from 'react-loader-spinner'
 import {BsSearch} from 'react-icons/bs'
 import Cookies from 'js-cookie'
 
+import {formatDistanceToNow} from 'date-fns'
+
 import {
   HomeContainer,
   SubContainer,
@@ -20,6 +22,8 @@ import Sidebar from '../SideBar'
 import Banner from '../Banner'
 import NxtWatchContext from '../../context/NxtWatchContext'
 import VideoItemCard from '../VideoItemCard'
+import NoSearchResults from '../NoSearchResults'
+import FailureCard from '../FailureCard'
 
 const HomeApiStatusConsonants = {
   initial: 'INITIAL',
@@ -34,6 +38,10 @@ class Home extends Component {
     searchText: '',
     videosData: [],
     apiStatus: HomeApiStatusConsonants.initial,
+  }
+
+  componentDidMount() {
+    this.getVideosData()
   }
 
   onHideBanner = () => {
@@ -58,7 +66,7 @@ class Home extends Component {
     if (response.ok === true) {
       const fetchedData = await response.json()
       const {videos} = fetchedData
-      console.log(videos)
+
       const updatedVideosData = videos.map(eachItem => ({
         channelName: eachItem.channel.name,
         profileImageUrl: eachItem.channel.profile_image_url,
@@ -67,19 +75,25 @@ class Home extends Component {
         thumbnailUrl: eachItem.thumbnail_url,
         title: eachItem.title,
         viewCount: eachItem.view_count,
+        fromDistance: formatDistanceToNow(new Date(eachItem.published_at)),
       }))
+
       this.setState({
         apiStatus: HomeApiStatusConsonants.success,
         videosData: updatedVideosData,
       })
-    } else if (response.status === 401) {
+    } else if (response.status === 400) {
       this.setState({
         apiStatus: HomeApiStatusConsonants.failure,
       })
     }
   }
 
-  componentDidMount = () => {
+  onChangeSearch = event => {
+    this.setState({searchText: event.target.value})
+  }
+
+  onClickSearch = () => {
     this.getVideosData()
   }
 
@@ -94,6 +108,8 @@ class Home extends Component {
       </VideoListCard>
     )
   }
+
+  renderFailureView = () => <FailureCard retryData={this.getVideosData} />
 
   renderLoader = () => (
     <NxtWatchContext.Consumer>
@@ -115,13 +131,24 @@ class Home extends Component {
     </NxtWatchContext.Consumer>
   )
 
+  renderSuccessView = () => {
+    const {videosData} = this.state
+
+    if (videosData.length === 0) {
+      return <NoSearchResults retryData={this.getVideosData} />
+    }
+    return this.renderVideos()
+  }
+
   renderFinal = () => {
     const {apiStatus} = this.state
     switch (apiStatus) {
       case HomeApiStatusConsonants.pending:
         return this.renderLoader()
       case HomeApiStatusConsonants.success:
-        return this.renderVideos()
+        return this.renderSuccessView()
+      case HomeApiStatusConsonants.failure:
+        return this.renderFailureView()
       default:
         return null
     }
@@ -136,7 +163,7 @@ class Home extends Component {
           const {isDark} = value
 
           return (
-            <HomeContainer>
+            <HomeContainer isDark={isDark}>
               <Header />
               <SubContainer>
                 <Sidebar />
@@ -144,8 +171,13 @@ class Home extends Component {
                   {showBanner && <Banner onHideBanner={this.onHideBanner} />}
 
                   <SearchCard isDark={isDark}>
-                    <SearchInput isDark={isDark} placeholder="Search" />
-                    <SearchButton isDark={isDark}>
+                    <SearchInput
+                      isDark={isDark}
+                      placeholder="Search"
+                      onChange={this.onChangeSearch}
+                      type="search"
+                    />
+                    <SearchButton isDark={isDark} onClick={this.onClickSearch}>
                       <BsSearch color={isDark ? '#ffffff' : '#181818'} />
                     </SearchButton>
                   </SearchCard>

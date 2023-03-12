@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
 export const SideBarContainer = styled.div`
+  //   width: 100vw;
+
   /* Extra Small */
   @media screen and (max-width: 575px) {
     display: ${props => (props.Mobile ? 'visible' : 'none')};

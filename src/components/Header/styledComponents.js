@@ -2,7 +2,9 @@ import styled from 'styled-components'
 
 export const HeaderContainer = styled.div`
   background-color: ${props => (props.isDark ? '#000000' : '#ffffff')};
-
+  position: fixed;
+  top: 0;
+  width: 100vw;
   /* Extra Small */
   @media screen and (max-width: 575px) {
     display: flex;
