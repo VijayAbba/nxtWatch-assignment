@@ -136,7 +136,7 @@ class VideoDetailsPage extends Component {
           const isDisLikeActive = videoStatus === VideoStatusConsonants.dislike
 
           const onSaveVideoId = () => {
-            onSaveVideo(id)
+            onSaveVideo(videoDetails)
           }
 
           const checkId = savedVideosList.find(eachItem => eachItem.id === id)

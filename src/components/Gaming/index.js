@@ -3,6 +3,8 @@ import Loader from 'react-loader-spinner'
 import {formatDistanceToNow} from 'date-fns'
 import Cookies from 'js-cookie'
 
+import {GiGamepad} from 'react-icons/gi'
+
 import NxtWatchContext from '../../context/NxtWatchContext'
 import FailureCard from '../FailureCard'
 
@@ -13,6 +15,17 @@ import {
   GamingContainer,
   SubContainer,
   LoaderContainer,
+  GamingContentContainer,
+  GamingPageTopCard,
+  GameIconCard,
+  GamingPageHeading,
+  GamesListContainer,
+  GameItem,
+  GameItemLink,
+  GameImage,
+  GameHeading,
+  WatchCountCard,
+  WatchingCount,
 } from './styledComponents'
 
 const VideoApiStatusConsonants = {
@@ -66,7 +79,52 @@ class Gaming extends Component {
     }
   }
 
-  renderSuccessView = () => <h1 className="">Success</h1>
+  renderSuccessView = () => {
+    const {gamingData} = this.state
+
+    // const {
+    //   id,
+    //   thumbnailUrl,
+    //   title,
+    //   viewCount,
+
+    return (
+      <NxtWatchContext.Consumer>
+        {value => {
+          const {isDark} = value
+
+          return (
+            <GamingContentContainer>
+              <GamingPageTopCard isDark={isDark}>
+                <GameIconCard>
+                  <GiGamepad size="30" color="red" />
+                </GameIconCard>
+                <GamingPageHeading>Gaming</GamingPageHeading>
+              </GamingPageTopCard>
+              <GamesListContainer>
+                {gamingData.map(eachItem => (
+                  <GameItem key={eachItem.id}>
+                    <GameItemLink to={`/videos/${eachItem.id}`}>
+                      <GameImage src={eachItem.thumbnailUrl} />
+                      <GameHeading isDark={isDark}>
+                        {eachItem.title}
+                      </GameHeading>
+                      <WatchCountCard>
+                        <WatchingCount>
+                          {eachItem.viewCount} Watching
+                        </WatchingCount>
+                        <WatchingCount> Worldwide</WatchingCount>
+                      </WatchCountCard>
+                    </GameItemLink>
+                  </GameItem>
+                ))}
+              </GamesListContainer>
+            </GamingContentContainer>
+          )
+        }}
+      </NxtWatchContext.Consumer>
+    )
+  }
 
   renderLoader = () => (
     <NxtWatchContext.Consumer>

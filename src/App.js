@@ -26,13 +26,14 @@ class App extends Component {
     this.setState({activeWindow: id})
   }
 
-  onSaveVideo = id => {
+  onSaveVideo = videoDetails => {
     const {savedVideosList} = this.state
+    const {id} = videoDetails
 
     const getIndex = savedVideosList.findIndex(eachItem => eachItem.id === id)
     if (getIndex === -1) {
       this.setState(preState => ({
-        savedVideosList: [...preState.savedVideosList, {id}],
+        savedVideosList: [...preState.savedVideosList, {...videoDetails}],
       }))
     } else {
       const filterList = savedVideosList.filter(eachItem => eachItem.id !== id)

@@ -90,19 +90,31 @@ class Trending extends Component {
     // } = trendingVideos
 
     return (
-      <TrendingContentContainer>
-        <TrendingPageTopCard>
-          <FireCard>
-            <HiFire size="30" color="red" />
-          </FireCard>
-          <TrendingPageHeading>Trending</TrendingPageHeading>
-        </TrendingPageTopCard>
-        <VideoListCard className="">
-          {trendingVideos.map(eachItem => (
-            <VideoItemCard videoDetails={eachItem} key={eachItem.id} trending />
-          ))}
-        </VideoListCard>
-      </TrendingContentContainer>
+      <NxtWatchContext.Consumer>
+        {value => {
+          const {isDark} = value
+
+          return (
+            <TrendingContentContainer>
+              <TrendingPageTopCard isDark={isDark}>
+                <FireCard>
+                  <HiFire size="30" color="red" />
+                </FireCard>
+                <TrendingPageHeading>Trending</TrendingPageHeading>
+              </TrendingPageTopCard>
+              <VideoListCard className="">
+                {trendingVideos.map(eachItem => (
+                  <VideoItemCard
+                    videoDetails={eachItem}
+                    key={eachItem.id}
+                    trending
+                  />
+                ))}
+              </VideoListCard>
+            </TrendingContentContainer>
+          )
+        }}
+      </NxtWatchContext.Consumer>
     )
   }
 

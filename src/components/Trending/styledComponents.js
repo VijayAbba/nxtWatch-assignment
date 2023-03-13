@@ -35,7 +35,8 @@ export const TrendingPageTopCard = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  background-color: #f1f1f1;
+  background-color: ${props => (props.isDark ? '#181818' : '#f1f1f1')};
+  color: ${props => (props.isDark ? '#ffffff' : '#000000')};
 `
 export const FireCard = styled.div`
   background-color: #e2e8f0;

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const HeaderContainer = styled.div`
-  background-color: ${props => (props.isDark ? '#000000' : '#ffffff')};
+  background-color: ${props => (props.isDark ? '#212121' : '#ffffff')};
   position: fixed;
   top: 0;
   width: 100vw;
