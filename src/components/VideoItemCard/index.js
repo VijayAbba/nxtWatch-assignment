@@ -4,7 +4,6 @@ import {
   VideoItem,
   VideoImage,
   VideoContentDetails,
-  ChannelImageCard,
   ChannelImage,
   TitleAndAllDetailsCard,
   VideoTitle,
@@ -15,7 +14,7 @@ import {
 } from './styledComponents'
 
 const VideoItemCard = props => {
-  const {videoDetails} = props
+  const {videoDetails, trending} = props
 
   const {
     channelName,
@@ -34,12 +33,11 @@ const VideoItemCard = props => {
         const {isDark} = value
         return (
           <StyledLink to={`/videos/${id}`}>
-            <VideoItem>
+            <VideoItem trending={trending}>
               <VideoImage src={thumbnailUrl} />
-              <VideoContentDetails>
-                <ChannelImageCard>
-                  <ChannelImage src={profileImageUrl} />
-                </ChannelImageCard>
+              <VideoContentDetails trending={trending}>
+                <ChannelImage trending={trending} src={profileImageUrl} />
+
                 <TitleAndAllDetailsCard>
                   <VideoTitle isDark={isDark}>{title}</VideoTitle>
                   <BottomCard>

@@ -82,8 +82,8 @@ export const VideoListCard = styled.ul`
   padding: 0px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   flex-wrap: wrap;
   padding-top: 30px;
 `

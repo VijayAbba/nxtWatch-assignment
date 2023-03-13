@@ -3,19 +3,23 @@ import {Component} from 'react'
 import Loader from 'react-loader-spinner'
 import {formatDistanceToNow} from 'date-fns'
 import Cookies from 'js-cookie'
-
+import {HiFire} from 'react-icons/hi'
 import NxtWatchContext from '../../context/NxtWatchContext'
 import FailureCard from '../FailureCard'
 
 import Header from '../Header'
 import Sidebar from '../SideBar'
+import VideoItemCard from '../VideoItemCard'
 
 import {
   TrendingContainer,
   SubContainer,
   LoaderContainer,
   TrendingContentContainer,
-  StyledLink,
+  TrendingPageTopCard,
+  FireCard,
+  TrendingPageHeading,
+  VideoListCard,
 } from './styledComponents'
 
 const VideoApiStatusConsonants = {
@@ -87,9 +91,17 @@ class Trending extends Component {
 
     return (
       <TrendingContentContainer>
-        {trendingVideos.map(eachItem => (
-          <StyledLink to={`/videos/${eachItem.id}`}>Link</StyledLink>
-        ))}
+        <TrendingPageTopCard>
+          <FireCard>
+            <HiFire size="30" color="red" />
+          </FireCard>
+          <TrendingPageHeading>Trending</TrendingPageHeading>
+        </TrendingPageTopCard>
+        <VideoListCard className="">
+          {trendingVideos.map(eachItem => (
+            <VideoItemCard videoDetails={eachItem} key={eachItem.id} trending />
+          ))}
+        </VideoListCard>
       </TrendingContentContainer>
     )
   }
