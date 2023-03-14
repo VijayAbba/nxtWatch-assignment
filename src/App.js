@@ -68,7 +68,7 @@ class App extends Component {
             component={VideoDetailsPage}
           />
 
-          <Route component={NotFound} />
+          <ProtectedRoute component={NotFound} />
         </Switch>
       </NxtWatchContext.Provider>
     )

@@ -125,7 +125,7 @@ class Trending extends Component {
         {value => {
           const {isDark} = value
           return (
-            <SavedVideosContainer isDark={isDark}>
+            <SavedVideosContainer data-testid="savedVideos" isDark={isDark}>
               <Header />
               <SubContainer>
                 <Sidebar />

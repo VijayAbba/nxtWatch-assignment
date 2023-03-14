@@ -44,7 +44,7 @@ export const ContactUsContainer = styled.div`
   justify-content: center;
   align-items: center;
 `
-export const ContactUsHeading = styled.h1`
+export const ContactUsHeading = styled.p`
   font-size: 18px;
 `
 

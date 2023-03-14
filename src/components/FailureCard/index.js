@@ -26,7 +26,7 @@ const FailureCard = props => {
 
         return (
           <NoSearchContainer>
-            <NoSearchImg src={imgUrl} />
+            <NoSearchImg src={imgUrl} alt="failure view" />
 
             <NoSearchHeading isDark={isDark}>
               Oops! Something Went Wrong

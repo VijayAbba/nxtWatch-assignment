@@ -41,14 +41,14 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.getVideosData()
+    this.getHomeVideosData()
   }
 
   onHideBanner = () => {
     this.setState({showBanner: false})
   }
 
-  getVideosData = async () => {
+  getHomeVideosData = async () => {
     this.setState({apiStatus: HomeApiStatusConsonants.pending})
     const {searchText} = this.state
     const jwtToken = Cookies.get('jwt_token')
@@ -75,8 +75,12 @@ class Home extends Component {
         thumbnailUrl: eachItem.thumbnail_url,
         title: eachItem.title,
         viewCount: eachItem.view_count,
-        fromDistance: formatDistanceToNow(new Date(eachItem.published_at)),
+        fromDistance: formatDistanceToNow(new Date(eachItem.published_at), {
+          addSuffix: true,
+          includeSeconds: true,
+        }),
       }))
+      console.log(updatedVideosData)
 
       this.setState({
         apiStatus: HomeApiStatusConsonants.success,
@@ -94,7 +98,7 @@ class Home extends Component {
   }
 
   onClickSearch = () => {
-    this.getVideosData()
+    this.getHomeVideosData()
   }
 
   renderVideos = () => {
@@ -109,7 +113,7 @@ class Home extends Component {
     )
   }
 
-  renderFailureView = () => <FailureCard retryData={this.getVideosData} />
+  renderFailureView = () => <FailureCard retryData={this.getHomeVideosData} />
 
   renderLoader = () => (
     <NxtWatchContext.Consumer>
@@ -135,7 +139,7 @@ class Home extends Component {
     const {videosData} = this.state
 
     if (videosData.length === 0) {
-      return <NoSearchResults retryData={this.getVideosData} />
+      return <NoSearchResults retryData={this.getHomeVideosData} />
     }
     return this.renderVideos()
   }

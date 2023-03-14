@@ -1,3 +1,4 @@
+import {formatDistanceToNow} from 'date-fns'
 import NxtWatchContext from '../../context/NxtWatchContext'
 
 import {
@@ -34,7 +35,7 @@ const VideoItemCard = props => {
         return (
           <StyledLink to={`/videos/${id}`}>
             <VideoItem trending={trending}>
-              <VideoImage src={thumbnailUrl} />
+              <VideoImage src={thumbnailUrl} alt="video thumbnail" />
               <VideoContentDetails trending={trending}>
                 <ChannelImage trending={trending} src={profileImageUrl} />
 
@@ -43,7 +44,7 @@ const VideoItemCard = props => {
                   <BottomCard>
                     <ChannelNameText>{channelName}</ChannelNameText>
                     <BottomText>{viewCount} views</BottomText>
-                    <BottomText>{fromDistance}</BottomText>
+                    <BottomText>{publishedAt}</BottomText>
                   </BottomCard>
                 </TitleAndAllDetailsCard>
               </VideoContentDetails>

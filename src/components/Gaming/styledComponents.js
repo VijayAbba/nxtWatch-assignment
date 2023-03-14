@@ -80,7 +80,7 @@ export const GameImage = styled.img`
     height: 300px;
   }
 `
-export const GameHeading = styled.h1`
+export const GameHeading = styled.p`
   color: ${props => (props.isDark ? '#ffffff' : '#000000')};
   font-size: 16px;
   /* Medium */

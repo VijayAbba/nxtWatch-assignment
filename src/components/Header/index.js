@@ -1,12 +1,13 @@
 import {FaMoon} from 'react-icons/fa'
 import {BiSun} from 'react-icons/bi'
-import {withRouter} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 
 import MenuPopUp from '../MenuPopUp'
 import {
   HeaderContainer,
   HeaderLogoImg,
   HeaderButtonsCard,
+  HeaderListItem,
   ThemeButton,
   ProfileImage,
   HeaderButtonsCardMobile,
@@ -30,32 +31,47 @@ const Header = () => (
         : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
       return (
         <HeaderContainer isDark={isDark}>
-          <HeaderLogoImg className="" src={logoUrl} alt="" />
+          <Link to="/">
+            <HeaderLogoImg className="" src={logoUrl} alt="website logo" />
+          </Link>
           <HeaderButtonsCard>
-            <ThemeButton onClick={onChangeTheme}>
-              {isDark ? (
-                <BiSun size="40" color="#ffffff" />
-              ) : (
-                <FaMoon size="40" color="#000000" />
-              )}
-            </ThemeButton>
-            <ThemeButton>
-              <ProfileImage src="https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png" />
-            </ThemeButton>
-
-            <LogoutPopUp />
+            <HeaderListItem>
+              <ThemeButton onClick={onChangeTheme} data-testid="theme">
+                {isDark ? (
+                  <BiSun size="40" color="#ffffff" />
+                ) : (
+                  <FaMoon size="40" color="#000000" />
+                )}
+              </ThemeButton>
+            </HeaderListItem>
+            <HeaderListItem>
+              <ThemeButton>
+                <ProfileImage
+                  src="https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png"
+                  alt="profile"
+                />
+              </ThemeButton>
+            </HeaderListItem>
+            <HeaderListItem>
+              <LogoutPopUp />
+            </HeaderListItem>
           </HeaderButtonsCard>
           <HeaderButtonsCardMobile>
-            <ThemeButton onClick={onChangeTheme}>
-              {isDark ? (
-                <BiSun size="30" color="#ffffff" />
-              ) : (
-                <FaMoon size="30" color="#000000" />
-              )}
-            </ThemeButton>
-
-            <MenuPopUp />
-            <LogoutPopUp mobile />
+            <HeaderListItem>
+              <ThemeButton onClick={onChangeTheme}>
+                {isDark ? (
+                  <BiSun size="30" color="#ffffff" />
+                ) : (
+                  <FaMoon size="30" color="#000000" />
+                )}
+              </ThemeButton>
+            </HeaderListItem>
+            <HeaderListItem>
+              <MenuPopUp />
+            </HeaderListItem>
+            <HeaderListItem>
+              <LogoutPopUp mobile />
+            </HeaderListItem>
           </HeaderButtonsCardMobile>
         </HeaderContainer>
       )

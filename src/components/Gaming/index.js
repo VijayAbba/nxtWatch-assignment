@@ -105,7 +105,10 @@ class Gaming extends Component {
                 {gamingData.map(eachItem => (
                   <GameItem key={eachItem.id}>
                     <GameItemLink to={`/videos/${eachItem.id}`}>
-                      <GameImage src={eachItem.thumbnailUrl} />
+                      <GameImage
+                        src={eachItem.thumbnailUrl}
+                        alt="video thumbnail"
+                      />
                       <GameHeading isDark={isDark}>
                         {eachItem.title}
                       </GameHeading>
@@ -168,7 +171,7 @@ class Gaming extends Component {
         {value => {
           const {isDark} = value
           return (
-            <GamingContainer isDark={isDark}>
+            <GamingContainer data-testid="gaming" isDark={isDark}>
               <Header />
               <SubContainer>
                 <Sidebar />

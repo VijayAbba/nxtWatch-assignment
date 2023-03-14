@@ -1,6 +1,8 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
 
+import NxtWatchContext from '../../context/NxtWatchContext'
+
 import {
   LoginContainer,
   LoginCard,
@@ -16,7 +18,6 @@ import {
 
 class Login extends Component {
   state = {
-    isDark: true,
     hidePassword: true,
     Username: '',
     Password: '',
@@ -69,7 +70,6 @@ class Login extends Component {
 
   render() {
     const {
-      isDark,
       hidePassword,
       Username,
       Password,
@@ -82,54 +82,62 @@ class Login extends Component {
       history.replace('/')
     }
 
-    const ImageUrl = isDark
-      ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
-      : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
-
     return (
-      <LoginContainer isDark={isDark}>
-        <LoginCard isDark={isDark}>
-          <LoginImage src={ImageUrl} alt="website logo" />
-          <LoginForm onSubmit={this.onSubmitLogin}>
-            <InputCard>
-              <LabelElement isDark={isDark} htmlFor="userName">
-                USERNAME
-              </LabelElement>
-              <InputElement
-                onChange={this.onChangeUsername}
-                id="userName"
-                type="text"
-                placeholder="Username"
-                value={Username}
-              />
-            </InputCard>
-            <InputCard>
-              <LabelElement isDark={isDark} htmlFor="password">
-                PASSWORD
-              </LabelElement>
-              <InputElement
-                onChange={this.onChangePassword}
-                id="password"
-                type={hidePassword ? 'password' : 'text'}
-                placeholder="Password"
-                value={Password}
-              />
-            </InputCard>
-            <InputCard row>
-              <CheckBoxElement
-                onChange={this.onShowPassword}
-                id="showPassword"
-                type="checkbox"
-              />
-              <LabelElement isDark={isDark} black htmlFor="showPassword">
-                Show Password
-              </LabelElement>
-            </InputCard>
-            <LoginButton type="submit">Login</LoginButton>
-            {showErrorMessage && <ErrorMessage>* {errorMsg}</ErrorMessage>}
-          </LoginForm>
-        </LoginCard>
-      </LoginContainer>
+      <NxtWatchContext.Consumer>
+        {value => {
+          const {isDark} = value
+
+          const ImageUrl = isDark
+            ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
+            : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
+
+          return (
+            <LoginContainer isDark={isDark}>
+              <LoginCard isDark={isDark}>
+                <LoginImage src={ImageUrl} alt="website logo" />
+                <LoginForm onSubmit={this.onSubmitLogin}>
+                  <InputCard>
+                    <LabelElement isDark={isDark} htmlFor="userName">
+                      USERNAME
+                    </LabelElement>
+                    <InputElement
+                      onChange={this.onChangeUsername}
+                      id="userName"
+                      type="text"
+                      placeholder="Username"
+                      value={Username}
+                    />
+                  </InputCard>
+                  <InputCard>
+                    <LabelElement isDark={isDark} htmlFor="password">
+                      PASSWORD
+                    </LabelElement>
+                    <InputElement
+                      onChange={this.onChangePassword}
+                      id="password"
+                      type={hidePassword ? 'password' : 'text'}
+                      placeholder="Password"
+                      value={Password}
+                    />
+                  </InputCard>
+                  <InputCard row>
+                    <CheckBoxElement
+                      onChange={this.onShowPassword}
+                      id="showPassword"
+                      type="checkbox"
+                    />
+                    <LabelElement isDark={isDark} black htmlFor="showPassword">
+                      Show Password
+                    </LabelElement>
+                  </InputCard>
+                  <LoginButton type="submit">Login</LoginButton>
+                  {showErrorMessage && <ErrorMessage>{errorMsg}</ErrorMessage>}
+                </LoginForm>
+              </LoginCard>
+            </LoginContainer>
+          )
+        }}
+      </NxtWatchContext.Consumer>
     )
   }
 }

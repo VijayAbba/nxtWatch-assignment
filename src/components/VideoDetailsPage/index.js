@@ -53,7 +53,7 @@ class VideoDetailsPage extends Component {
   }
 
   componentDidMount() {
-    this.getVideoData()
+    this.getVideoDetailsPage()
   }
 
   onVideoLike = () => {
@@ -64,7 +64,7 @@ class VideoDetailsPage extends Component {
     this.setState({videoStatus: VideoStatusConsonants.dislike})
   }
 
-  getVideoData = async () => {
+  getVideoDetailsPage = async () => {
     this.setState({apiStatus: VideoApiStatusConsonants.pending})
 
     const jwtToken = Cookies.get('jwt_token')
@@ -96,7 +96,10 @@ class VideoDetailsPage extends Component {
         title: videoDetails.title,
         videoUrl: videoDetails.video_url,
         viewCount: videoDetails.view_count,
-        fromDistance: formatDistanceToNow(new Date(videoDetails.published_at)),
+        fromDistance: formatDistanceToNow(new Date(videoDetails.published_at), {
+          addSuffix: true,
+          includeSeconds: true,
+        }),
       }
       this.setState({
         apiStatus: VideoApiStatusConsonants.success,
@@ -156,39 +159,44 @@ class VideoDetailsPage extends Component {
               <VideoTitle isDark={isDark}>{title}</VideoTitle>
               <VideoBelowDetailsCard>
                 <ViewsAndTimeCard>
-                  <ViewsAndTimeItem>{viewCount} views</ViewsAndTimeItem>
-                  <ViewsAndTimeItem>{fromDistance} ago</ViewsAndTimeItem>
+                  <ViewsAndTimeItem>{viewCount}</ViewsAndTimeItem>
+                  <ViewsAndTimeItem>{publishedAt}</ViewsAndTimeItem>
                 </ViewsAndTimeCard>
                 <LikeDislikeSaveCard>
-                  <ButtonEl onClick={this.onVideoLike} isActive={isLikeActive}>
-                    <BiLike
-                      size="20"
-                      color={isLikeActive ? '#3b82f6' : '#64748b'}
-                    />
+                  <BiLike
+                    size="20"
+                    color={isLikeActive ? '#2563eb' : '#64748b'}
+                  />
+                  <ButtonEl
+                    onClick={this.onVideoLike}
+                    isActive={isLikeActive}
+                    type="button"
+                  >
                     Like
                   </ButtonEl>
+                  <BiDislike
+                    size="20"
+                    color={isDisLikeActive ? '#2563eb' : '#64748b'}
+                  />
                   <ButtonEl
                     onClick={this.onVideoDislike}
                     isActive={isDisLikeActive}
+                    type="button"
                   >
-                    <BiDislike
-                      size="20"
-                      color={isDisLikeActive ? '#3b82f6' : '#64748b'}
-                    />
                     Dislike
                   </ButtonEl>
                   <ButtonEl onClick={onSaveVideoId} isActive={savedVide}>
                     <BiListPlus
                       size="20"
-                      color={savedVide ? '#3b82f6' : '#64748b'}
+                      color={savedVide ? '#2563eb' : '#64748b'}
                     />
-                    Save
+                    {savedVide ? 'Saved' : 'Save'}
                   </ButtonEl>
                 </LikeDislikeSaveCard>
               </VideoBelowDetailsCard>
               <HorizontalLine />
               <ChannelDetailsCard>
-                <ChannelImg src={profileImageUrl} />
+                <ChannelImg src={profileImageUrl} alt="channel logo" />
                 <ChannelNameAndSubscribersCard>
                   <ChannelName>{channelName}</ChannelName>
                   <SubscribersCount>
@@ -224,7 +232,7 @@ class VideoDetailsPage extends Component {
     </NxtWatchContext.Consumer>
   )
 
-  renderFailureView = () => <FailureCard retryData={this.getVideoData} />
+  renderFailureView = () => <FailureCard retryData={this.getVideoDetailsPage} />
 
   renderFinal = () => {
     const {apiStatus} = this.state
@@ -246,7 +254,10 @@ class VideoDetailsPage extends Component {
         {value => {
           const {isDark} = value
           return (
-            <VideoDetailsPageContainer isDark={isDark}>
+            <VideoDetailsPageContainer
+              data-testid="videoItemDetails"
+              isDark={isDark}
+            >
               <Header />
               <SubContainer>
                 <Sidebar />

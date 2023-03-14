@@ -74,7 +74,7 @@ export const BottomCard = styled.ul`
   }
 `
 
-export const ChannelNameText = styled.li`
+export const ChannelNameText = styled.p`
   margin: 0px;
   padding: 0px;
   font-size: 12px;
@@ -87,7 +87,7 @@ export const ChannelNameText = styled.li`
   }
 `
 
-export const BottomText = styled.li`
+export const BottomText = styled.p`
   margin: 0px;
   padding: 0px;
   font-size: 12px;

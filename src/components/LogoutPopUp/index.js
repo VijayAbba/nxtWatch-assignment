@@ -54,7 +54,7 @@ const LogoutPopUp = props => {
               {close => (
                 <PopUpDetailsCard>
                   <div>
-                    <p>Are you sure you want to logout?</p>
+                    <p>Are you sure, you want to logout</p>
                   </div>
                   <ButtonsCard>
                     <CancelButton
@@ -62,7 +62,7 @@ const LogoutPopUp = props => {
                       className="trigger-button"
                       onClick={() => close()}
                     >
-                      Close
+                      Cancel
                     </CancelButton>
                     <ConfirmButton onClick={onLogout} type="button">
                       Confirm

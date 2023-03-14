@@ -61,7 +61,10 @@ class Trending extends Component {
         thumbnailUrl: eachItem.thumbnail_url,
         title: eachItem.title,
         viewCount: eachItem.view_count,
-        fromDistance: formatDistanceToNow(new Date(eachItem.published_at)),
+        fromDistance: formatDistanceToNow(new Date(eachItem.published_at), {
+          addSuffix: true,
+          includeSeconds: true,
+        }),
       }))
 
       this.setState({
@@ -160,7 +163,7 @@ class Trending extends Component {
         {value => {
           const {isDark} = value
           return (
-            <TrendingContainer isDark={isDark}>
+            <TrendingContainer data-testid="trending" isDark={isDark}>
               <Header />
               <SubContainer>
                 <Sidebar />

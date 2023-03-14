@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const HeaderContainer = styled.div`
+export const HeaderContainer = styled.nav`
   background-color: ${props => (props.isDark ? '#212121' : '#ffffff')};
   position: fixed;
   top: 0;
@@ -42,7 +42,8 @@ export const HeaderLogoImg = styled.img`
   width: 130px;
 `
 
-export const HeaderButtonsCard = styled.div`
+export const HeaderButtonsCard = styled.ul`
+  list-style-type: none;
   /* Extra Small */
   @media screen and (max-width: 575px) {
     display: none;
@@ -65,6 +66,8 @@ export const HeaderButtonsCard = styled.div`
   @media screen and (min-width: 1200px) {
   }
 `
+
+export const HeaderListItem = styled.li``
 
 export const ThemeButton = styled.button`
   border-width: 0px;

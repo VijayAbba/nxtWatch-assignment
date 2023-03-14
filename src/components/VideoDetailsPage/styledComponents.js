@@ -74,7 +74,7 @@ export const ViewsAndTimeCard = styled.ul`
   padding: 0px;
 `
 
-export const ViewsAndTimeItem = styled.li`
+export const ViewsAndTimeItem = styled.p`
   padding-right: 10px;
   color: #64748b;
 `
@@ -117,7 +117,7 @@ export const ButtonEl = styled.button`
   font-size: 14px;
   width: 90px;
   border-width: 0px;
-  color: ${props => (props.isActive ? '#3b82f6' : '#64748b')};
+  color: ${props => (props.isActive ? '#2563eb' : '#64748b')};
 `
 
 export const HorizontalLine = styled.hr`
